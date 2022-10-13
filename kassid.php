@@ -1,7 +1,9 @@
 <?php
-
-$mysqli = new mysqli("localhost", "tunnikas", "0q!n8Zk8krHqHCrt", "tunniplaan");
-$stmt = $mysqli->prepare("SELECT id, kassinimi, toon FROM kassid");
+require("dbConfig.php");
+if (isset($user) && (isset($server)) && (isset($password)) && (isset($database))) {
+    $conn = new mysqli($server, $user, $password, $database);
+}
+$stmt = $conn->prepare("SELECT id, kassinimi, toon FROM kassid");
 $stmt->execute();
 $stmt->bind_result($id, $nimi, $toon);
 
@@ -39,6 +41,6 @@ $stmt->bind_result($id, $nimi, $toon);
 
 
 
-$mysqli->close();
+$conn->close();
 
 ?>

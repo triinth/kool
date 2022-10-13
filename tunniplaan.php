@@ -1,7 +1,11 @@
 <?php
 
-$mysqli = new mysqli("localhost", "tunnikas", "0q!n8Zk8krHqHCrt", "tunniplaan");
-$stmt = $mysqli->prepare("SELECT id, pealkiri, sisu FROM lehed");
+require("dbConfig.php");
+if (isset($user) && (isset($server)) && (isset($password)) && (isset($database))) {
+    $conn = new mysqli($server, $user, $password, $database);
+}
+
+$stmt = $conn->prepare("SELECT id, pealkiri, sisu FROM lehed");
 $stmt->execute();
 $stmt->bind_result($id, $pealkiri, $sisu);
 
@@ -37,6 +41,6 @@ $stmt->bind_result($id, $pealkiri, $sisu);
 
 <?php
 
-$mysqli->close();
+$conn->close();
 
 ?>
